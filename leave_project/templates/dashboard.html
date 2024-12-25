@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Leave Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            width: 70%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        form {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        form input[type="text"], form button, form select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #003d7a;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .check-leave-status {
+            width: 50%;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Leave Application Dashboard</h1>
+
+        <h2>Submit Leave Application</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+
+        <h2>All Leave Applications</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Year</th>
+                    <th>Department</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Leave Days</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in leave_applications %}
+                <tr>
+                    <td>{{ application.student_name }}</td>
+                    <td>{{ application.year }}</td>
+                    <td>{{ application.department }}</td>
+                    <td>{{ application.reason }}</td>
+                    <td>{{ application.status }}</td>
+                    <td>{{ application.leave_days }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Check Your Leave Status</h2>
+        <form class="check-leave-status" method="GET" action="{% url 'student_status' %}">
+            <label for="student_name">Enter Your Name:</label>
+            <input type="text" name="student_name" required>
+            <button type="submit">Check Status</button>
+        </form>
+    </div>
+</body>
+</html>

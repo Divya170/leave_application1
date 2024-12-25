@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Leave Status</title>
+    <style>
+        /* Basic page layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Center the content */
+        .container {
+            width: 80%;
+            max-width: 1000px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Heading style */
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Leave Status for {{ student_name }}</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Department</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Leave Days</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in leave_status %}
+                <tr>
+                    <td>{{ application.year }}</td>
+                    <td>{{ application.department }}</td>
+                    <td>{{ application.reason }}</td>
+                    <td>{{ application.status }}</td>
+                    <td>{{ application.leave_days }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
